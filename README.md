@@ -4,7 +4,7 @@
 cat FASTQ*/*/*E24HR*fastq.gz >> /Users/subbaprakrit/Box/Prakrit\ Subba\ research/PS_Heat_call_RNA_seq_analysis/Heart/E24HR.fastq.gz
 #### Change E24HR from E8HR to E34HR 
 
-### remove the adapter contamination, polyA read through, and low quality tails
+### Remove the adapter contamination, polyA read through, and low quality tails
 
 #PBS -N bbduk_heart 
 #PBS -l select=1:ncpus=12:mem=62gb:interconnect=fdr,walltime=24:00:00 

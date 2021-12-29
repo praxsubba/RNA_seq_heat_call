@@ -28,7 +28,7 @@ STAR --runThreadN 8 \
 --sjdbGTFfile GCF_003957565.2_bTaeGut1.4.pri_genomic.gtf \
 --sjdbOverhang 99
 
-#### Need to create one common fasta file for genome mapping
+### Mapping using array job for all the samples stored in sample.txt
 #!/bin/bash
 
 #PBS -N STAR_mapping_array

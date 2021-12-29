@@ -48,3 +48,17 @@ STAR --runThreadN 8 --genomeDir /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall --re
 
 
 echo 'JOB ENDED'        # prints to your output file
+
+### Count reads mapped using featurecounts
+#!/bin/bash
+
+#PBS -N featurecounts_array
+#PBS -l select=1:ncpus=12:mem=62gb:interconnect=fdr,walltime=24:00:00 
+#PBS -j oe
+#PBS -m abe
+#PBS -M psubba@clemson.edu
+#PBS -J 1-25
+
+cd /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall
+f=( $(sed -n ${PBS_ARRAY_INDEX}p samples.txt) )
+featureCounts -a GCF_003957565.2_bTaeGut1.4.pri_genomic.gtf -F GTF -o ${f}_countMatrix.txt ${f}_star_resultAligned.sortedByCoord.out.bam

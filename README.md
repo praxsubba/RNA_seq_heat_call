@@ -29,16 +29,22 @@ STAR --runThreadN 8 \
 --sjdbOverhang 99
 
 #### Need to create one common fasta file for genome mapping
-#PBS -N STAR_index 
+#!/bin/bash
+
+#PBS -N STAR_mapping_array
 #PBS -l select=1:ncpus=12:mem=62gb:interconnect=fdr,walltime=24:00:00 
-#PBS -m abe 
 #PBS -j oe
+#PBS -m abe
+#PBS -M psubba@clemson.edu
+#PBS -J 1-25
 
 cd /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall
-for sample in *clean.fastq ; do \
-STAR --runThreadN 8 --genomeDir /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall --readFilesIn ${sample} \
---outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 \
---outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.1 --alignIntronMin 20 \
---alignIntronMax 1000000 --alignMatesGapMax 1000000 --outSAMattributes NH HI NM MD
---outSAMtype BAM SortedByCoordinate --outFileNamePrefix ${sample}_star_result ;\
-done
+f=( $(sed -n ${PBS_ARRAY_INDEX}p samples.txt) )
+
+STAR --runThreadN 8 --genomeDir /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall --readFilesIn /home/psubba/Heart/${f}HR.fastq_trimmed_clean.fastq \ 
+--outFilterType BySJout --outFilterMultimapNmax 5 --alignSJoverhangMin 5 --alignSJDBoverhangMin 3 \
+--outFilterMismatchNmax 10 --outFilterMismatchNoverLmax 0.1 --alignIntronMin 21 \ --alignIntronMax 0 --alignMatesGapMax 0 --outSAMattributes NH HI NM MD \
+--outSAMtype BAM SortedByCoordinate --outFileNamePrefix ${f}_star_result --quantMode TranscriptomeSAM GeneCounts
+
+
+echo 'JOB ENDED'        # prints to your output file

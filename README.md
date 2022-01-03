@@ -52,7 +52,7 @@ echo 'JOB ENDED'        # prints to your output file
 ### Count reads mapped using featurecounts
 #!/bin/bash
 
-#PBS -N featurecounts_array
+#PBS -N featurecounts_muscle_array
 #PBS -l select=1:ncpus=12:mem=62gb:interconnect=fdr,walltime=24:00:00 
 #PBS -j oe
 #PBS -m abe
@@ -61,9 +61,10 @@ echo 'JOB ENDED'        # prints to your output file
 
 cd /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall
 f=( $(sed -n ${PBS_ARRAY_INDEX}p samples.txt) )
-featureCounts -a GCF_003957565.2_bTaeGut1.4.pri_genomic.gtf -F GTF -o ${f}_countMatrix.txt ${f}_star_resultAligned.sortedByCoord.out.bam
+featureCounts -a test.gtf -F GTF -o ${f}_muscle_countMatrix.txt ${f}_muscle_star_resultAligned.sortedByCoord.out.bam -g gene_id "";
 
 echo 'JOB ENDED'        # prints to your output file
+
 
 ### Edit the output of FeatureCounts to extract columns 1 and 7
 cut -f 1,7 E8_muscle_countMatrix.txt > E8_muscle_countMatrix_final.txt

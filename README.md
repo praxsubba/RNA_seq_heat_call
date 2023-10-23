@@ -82,7 +82,7 @@ cut -f 1,7 E8_muscle_countMatrix.txt > E8_muscle_countMatrix_final.txt
 
 cd /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall
 
-STAR --runThreadN 8 --genomeDir /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall --readFilesIn /zfs/jmgeorge/Prakrit/trimmed_paired/10_1P.fastq.gz /zfs/jmgeorge/Prakrit/trimmed_paired/10_2P.fastq.gz \ 
+STAR --runThreadN 8 --genomeDir /zfs/jmgeorge/Prakrit/STAR_RNA_seq_heatcall --readFilesIn /zfs/jmgeorge/Prakrit/trimmed_paired/10_1P.fastq.gz /zfs/jmgeorge/Prakrit/trimmed_paired/10_2P.fastq.gz --readFilesCommandgunzip-c \ 
 --outFilterType BySJout --outFilterMultimapNmax 5 --alignSJoverhangMin 5 --alignSJDBoverhangMin 3 \
 --outFilterMismatchNmax 10 --outFilterMismatchNoverLmax 0.1 --alignIntronMin 21 \ --alignIntronMax 0 --alignMatesGapMax 0 --outSAMattributes NH HI NM MD AS nM \
 --outSAMtype BAM SortedByCoordinate --outFileNamePrefix 10_hypothalamic_punch_star_result --quantMode TranscriptomeSAM GeneCounts
